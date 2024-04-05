@@ -40,7 +40,7 @@ class AuthenticationController extends Controller
 
         return Response::json([
             'message' => 'Sign up is successful.'
-        ], HttpResponse::HTTP_UNPROCESSABLE_ENTITY);
+        ], HttpResponse::HTTP_CREATED);
     }
 
     /**
