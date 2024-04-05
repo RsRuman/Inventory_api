@@ -5,10 +5,9 @@
 
 ## Setup Guide (local)
 1. composer install
-2. npm install
-3. cp .env.example .env
-4. update .env
-5. php artisan key:generate
-6. php artisan migrate
-7. php artisan storage:link
-8. php artisan serve
+2. cp .env.example .env
+3. update .env
+4. php artisan key:generate
+5. php artisan migrate
+6. php artisan storage:link
+7. php artisan serve
