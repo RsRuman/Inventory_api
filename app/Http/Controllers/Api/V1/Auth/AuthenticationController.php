@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\SignUpRequest;
 use App\Interfaces\AuthenticationRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as HttpResponse;
 
@@ -62,6 +63,22 @@ class AuthenticationController extends Controller
         return Response::json([
             'message' => 'Sign in successful.',
             'token'   => $token
+        ], HttpResponse::HTTP_OK);
+    }
+
+    /**
+     * Logout
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        $user = $request->user('api');
+
+        $this->authenticationRepository->deleteToken($user);
+
+        return Response::json([
+            'message' => 'Logout successful.'
         ], HttpResponse::HTTP_OK);
     }
 }

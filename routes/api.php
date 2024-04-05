@@ -12,6 +12,9 @@ Route::group(['prefix' => 'v1/', 'middleware' => 'api'], function () {
 });
 
 Route::group(['prefix' => 'v1/', 'middleware' => ['auth:api']], function () {
+    // Logout
+    Route::post('logout', [AuthenticationController::class, 'logout']);
+
     // Inventory
     Route::group(['prefix' => 'inventories'], function () {
         Route::get('/', [InventoryController::class, 'index']);

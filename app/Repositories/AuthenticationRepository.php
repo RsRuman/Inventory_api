@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\AuthenticationRepositoryInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface
@@ -21,5 +23,10 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface
         }
 
         return false;
+    }
+
+    public function deleteToken(Model|Builder $user)
+    {
+        return $user->currentAccessToken()->delete();
     }
 }
