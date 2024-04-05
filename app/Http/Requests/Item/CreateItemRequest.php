@@ -22,7 +22,7 @@ class CreateItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $inventoryId = request()->inventoryId;
+        $inventoryId = request()->invId;
 
         return [
             'name'        => 'required|string|max:55|unique:items,name,NULL,id,inventory_id,' . $inventoryId,
