@@ -2,12 +2,8 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthenticationController;
 use App\Http\Controllers\Api\V1\Inventory\InventoryController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\Item\ItemController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
 // Public routes
 Route::group(['prefix' => 'v1/', 'middleware' => 'api'], function () {
@@ -15,13 +11,22 @@ Route::group(['prefix' => 'v1/', 'middleware' => 'api'], function () {
     Route::post('login', [AuthenticationController::class, 'login']);
 });
 
-
 Route::group(['prefix' => 'v1/', 'middleware' => ['auth:api']], function () {
+    // Inventory
     Route::group(['prefix' => 'inventories'], function () {
         Route::get('/', [InventoryController::class, 'index']);
         Route::get('/{id}', [InventoryController::class, 'show']);
         Route::post('/', [InventoryController::class, 'create']);
         Route::put('/{id}', [InventoryController::class, 'update']);
         Route::delete('/{id}', [InventoryController::class, 'destroy']);
+
+        // Item
+        Route::group(['prefix' => '/'], function () {
+            Route::get('/{invId}/items', [ItemController::class, 'index']);
+            Route::get('/{invId}/items/{id}', [ItemController::class, 'show']);
+            Route::post('/{invId}/items', [ItemController::class, 'create']);
+            Route::put('/{invId}/items/{id}', [ItemController::class, 'update']);
+            Route::delete('/{invId}/items/{id}', [ItemController::class, 'destroy']);
+        });
     });
 });
